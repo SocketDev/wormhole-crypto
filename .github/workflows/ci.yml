@@ -6,6 +6,7 @@ jobs:
   test:
     name: Node ${{ matrix.node }} / ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    environment: ci
     strategy:
       fail-fast: false
       matrix:
