@@ -1,0 +1,52 @@
+{
+  "name": "wormhole-crypto",
+  "description": "Streaming encryption for Wormhole.app, based on Encrypted Content-Encoding for HTTP (RFC 8188)",
+  "version": "0.0.0",
+  "author": {
+    "name": "Socket Inc",
+    "email": "feross@socket.dev",
+    "url": "https://socket.dev"
+  },
+  "bugs": {
+    "url": "https://github.com/SocketDev/wormhole-crypto/issues"
+  },
+  "dependencies": {
+    "base64-js": "^1.5.1"
+  },
+  "devDependencies": {
+    "airtap": "^4.0.3",
+    "airtap-manual": "^1.0.0",
+    "airtap-sauce": "^1.1.0",
+    "babel-eslint": "^10.1.0",
+    "esmify": "^2.1.1",
+    "standard": "^16.0.3",
+    "tape": "^5.0.1"
+  },
+  "keywords": [
+    "RFC 8188",
+    "crypto",
+    "cryptography",
+    "decryption",
+    "ece",
+    "encrypted content encoding",
+    "encryption",
+    "streaming encryption",
+    "streams",
+    "wormhole"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/SocketDev/wormhole-crypto.git"
+  },
+  "scripts": {
+    "test": "standard && npm run test-browser",
+    "test-browser": "airtap --concurrency 1 -- test/*.js",
+    "test-browser-local": "airtap --preset local -- test/*.js"
+  },
+  "standard": {
+    "parser": "babel-eslint"
+  },
+  "type": "module"
+}
