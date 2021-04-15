@@ -47,27 +47,29 @@ const plaintextStream = await keychain.decryptStream(encryptedStream)
 
 ## API
 
-### `keychain = new Keychain([[key], salt])`
+### `keychain = new Keychain([key, [salt]])`
 
-Create a new keychain.
+Create a new keychain object. The keychain can be used to create encryption streams, decryption streams, and to encrypt or decrypt a "metadata" buffer.
 
 #### `key`
 
 Type: `Uint8Array | string | null`
+
 Default: `null`
 
 The main key. This should be 16 bytes in length. If a `string` is given,
 then it should be a base64-encoded string. If the argument is `null`, then a
-key will be generated.
+key will be automatically generated.
 
 #### `salt`
 
 Type: `Uint8Array | string | null`
+
 Default: `null`
 
 The salt. This should be 16 bytes in length. If a `string` is given,
 then it should be a base64-encoded string. If this argument is `null`, then a
-key will be generated.
+salt will be automatically generated.
 
 ### `keychain.key`
 
@@ -87,6 +89,9 @@ Type: `Uint8Array`
 
 The salt.
 
+Implementation note: The salt is used to derive the (internal) metadata key and
+authentication token.
+
 ### `keychain.saltB64`
 
 Type: `string`
@@ -96,67 +101,129 @@ The salt as a base64-encoded string.
 ### `keychain.authToken()`
 
 Type: `Function`
+
 Returns: `Promise[Uint8Array]`
+
+Returns a `Promise` which resolves to the authentication token. By default, the
+authentication token is automatically derived from the main key using
+HKDF SHA-256.
+
+In Wormhole, the authentication token is used to communicate with the server and
+prove that the client has permission to fetch data for a room. Without a valid
+authentication token, the server will not return the encrypted room metadata or
+allow downloading the encrypted file data.
+
+Since the authentication token is derived from the main key, the client presents
+it to the Wormhole server as a "reader token" to prove that it is in possession
+of the main key without revealing the main key to the server.
+
+For destructive operations, like modifying the room, the client instead presents
+a "writer token", which is not derived from the main key but is provided by the
+server to the room creator who overrides the keychain authentication token by
+calling `keychain.setAuthToken(authToken)` with the "writer token".
 
 ### `keychain.authTokenB64()`
 
 Type: `Function`
+
 Returns: `Promise[string]`
+
+Returns a `Promise` that resolves to the authentication token as a
+base64-encoded string.
 
 ### `keychain.authHeader()`
 
 Type: `Function`
+
 Returns: `Promise[string]`
+
+Returns a `Promise` that resolves to the HTTP header value to be provided to the
+Wormhole server. It contains the authentication token.
 
 ### `keychain.setAuthToken(authToken)`
 
 Type: 'Function`
+
 Returns: `undefined`
+
+Update the keychain authentication token to `authToken`.
 
 #### `authToken`
 
 Type: `Uint8Array | string | null`
+
 Default: `null`
 
 The authentication token. This should be 16 bytes in length. If a `string` is
 given, then it should be a base64-encoded string. If this argument is `null`,
-then a key will be generated.
+then an authentication token will be automatically generated.
 
 ### `encryptStream(stream)`
 
 Type: `Function`
+
 Returns: `Promise[ReadableStream]`
+
+Returns a `Promise` that resolves to a `ReadableStream` encryption stream that
+consumes the data in `stream` and returns an encrypted version. Data is
+encrypted with [Encrypted Content-Encoding for HTTP (RFC 8188)](https://tools.ietf.org/html/rfc8188).
 
 #### `stream`
 
 Type: `ReadableStream`
 
+A WHATWG readable stream used as a data source for the encrypted stream.
+
 ### `decryptStream(encryptedStream)`
 
 Type: `Function`
+
 Returns: `Promise[ReadableStream]`
+
+Returns a `Promise` that resolves to a `ReadableStream` decryption stream that
+consumes the data in `encryptedStream` and returns a plaintext version.
 
 #### `encryptedStream`
 
 Type: `ReadableStream`
 
+A WHATWG readable stream used as a data source for the plaintext stream.
+
 ### `encryptMeta(meta)`
 
 Type: `Function`
+
 Returns: `Promise[Uint8Array]`
+
+Returns a `Promise` that resolves to an encrypted version of `meta`. The
+metadata is encrypted with AES-GCM.
+
+Implementation note: The metadata key is automatically derived from the main
+key using HKDF SHA-256. The value is not user-controlled.
+
+Implementation note: The initialization vector (IV) is automatically generated
+and included in the encrypted output. No need to generate it or to manage it
+separately from the encrypted output.
 
 #### `meta`
 
 Type: `Uint8Array`
 
+The metadata buffer to encrypt.
+
 ### `decryptMeta(encryptedMeta)`
 
 Type: `Function`
+
 Returns: `Promise[Uint8Array]`
+
+Returns a `Promise` that resolves to a decrypted version of `encryptedMeta`.
 
 #### `encryptedMeta`
 
 Type: `Uint8Array`
+
+The encrypted metadata buffer to decrypt.
 
 ## License
 
