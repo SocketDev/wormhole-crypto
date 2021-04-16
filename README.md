@@ -47,7 +47,11 @@ const plaintextStream = await keychain.decryptStream(encryptedStream)
 
 ## API
 
-### `keychain = new Keychain([key, [salt]])`
+### `new Keychain([key, [salt]])`
+
+Type: `Class`
+
+Returns: `Keychain`
 
 Create a new keychain object. The keychain can be used to create encryption streams, decryption streams, and to encrypt or decrypt a "metadata" buffer.
 
@@ -158,7 +162,7 @@ The authentication token. This should be 16 bytes in length. If a `string` is
 given, then it should be a base64-encoded string. If this argument is `null`,
 then an authentication token will be automatically generated.
 
-### `encryptStream(stream)`
+### `keychain.encryptStream(stream)`
 
 Type: `Function`
 
@@ -174,7 +178,7 @@ Type: `ReadableStream`
 
 A WHATWG readable stream used as a data source for the encrypted stream.
 
-### `decryptStream(encryptedStream)`
+### `keychain.decryptStream(encryptedStream)`
 
 Type: `Function`
 
@@ -189,7 +193,7 @@ Type: `ReadableStream`
 
 A WHATWG readable stream used as a data source for the plaintext stream.
 
-### `encryptMeta(meta)`
+### `keychain.encryptMeta(meta)`
 
 Type: `Function`
 
@@ -211,7 +215,7 @@ Type: `Uint8Array`
 
 The metadata buffer to encrypt.
 
-### `decryptMeta(encryptedMeta)`
+### `keychain.decryptMeta(encryptedMeta)`
 
 Type: `Function`
 
@@ -224,6 +228,22 @@ Returns a `Promise` that resolves to a decrypted version of `encryptedMeta`.
 Type: `Uint8Array`
 
 The encrypted metadata buffer to decrypt.
+
+### `plaintextSize(encryptedSize)`
+
+Type: 'Function`
+
+Returns: `Number`
+
+Given an encrypted size, return the corresponding plaintext size.
+
+### `encryptedSize(plaintextSize)`
+
+Type: 'Function`
+
+Returns: `Number`
+
+Given a plaintext size, return the corresponding encrypted size.
 
 ## License
 
