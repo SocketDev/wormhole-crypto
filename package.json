@@ -17,6 +17,7 @@
     "airtap": "^4.0.3",
     "airtap-manual": "^1.0.0",
     "airtap-sauce": "^1.1.0",
+    "airtap-system": "^0.1.0",
     "babel-eslint": "^10.1.0",
     "esmify": "^2.1.1",
     "standard": "^16.0.3",
@@ -41,9 +42,10 @@
     "url": "git://github.com/SocketDev/wormhole-crypto.git"
   },
   "scripts": {
-    "test": "standard",
-    "test-browser": "airtap --concurrency 1 -- test/*.js",
-    "test-browser-local": "airtap --preset local -- test/*.js"
+    "test": "standard && npm run test-browser",
+    "test-browser": "airtap --all -- test/*.js",
+    "test-browser-sauce": "airtap --preset sauce -- test/*.js",
+    "test-browser-manual": "airtap --preset manual -- test/*.js"
   },
   "standard": {
     "parser": "babel-eslint"

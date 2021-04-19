@@ -1,23 +1,30 @@
 providers:
-  - airtap-sauce
-browsers:
-  - name: chrome
-    version: '-2..latest'
-  - name: firefox
-    version: '-2..latest'
-  - name: safari
-    version: '-2..latest'
-  - name: microsoftedge
-    version: '-2..latest'
-  - name: iphone
-    version: '-2..latest'
-  - name: android
-    version: '-2..latest'
+  # By default, run tests in all locally installed browsers
+  - airtap-system
 browserify:
   - plugin:
       - esmify
+
 presets:
-  local:
+  sauce:
+    # Not used yet pending https://github.com/SocketDev/wormhole-crypto/issues/5
+    # and https://github.com/airtap/airtap/issues/311
+    providers: airtap-sauce
+    browsers:
+      - name: chrome
+        version: '-2..latest'
+      - name: firefox
+        version: '-2..latest'
+      - name: safari
+        version: '-2..latest'
+      - name: microsoftedge
+        version: '-2..latest'
+      - name: iphone
+        version: '-2..latest'
+      - name: android
+        version: '-2..latest'
+
+  manual:
     providers: airtap-manual
     browsers:
       - name: manual
