@@ -146,7 +146,7 @@ Wormhole server. It contains the authentication token.
 
 ### `keychain.setAuthToken(authToken)`
 
-Type: 'Function`
+Type: `Function`
 
 Returns: `undefined`
 
@@ -231,7 +231,7 @@ The encrypted metadata buffer to decrypt.
 
 ### `plaintextSize(encryptedSize)`
 
-Type: 'Function`
+Type: `Function`
 
 Returns: `Number`
 
@@ -239,7 +239,7 @@ Given an encrypted size, return the corresponding plaintext size.
 
 ### `encryptedSize(plaintextSize)`
 
-Type: 'Function`
+Type: `Function`
 
 Returns: `Number`
 
