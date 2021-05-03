@@ -16,7 +16,7 @@
   "devDependencies": {
     "airtap": "^4.0.3",
     "airtap-manual": "^1.0.0",
-    "airtap-sauce": "^1.1.0",
+    "airtap-sauce": "^1.1.2",
     "airtap-system": "^0.1.0",
     "babel-eslint": "^10.1.0",
     "esmify": "^2.1.1",
