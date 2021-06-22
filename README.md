@@ -187,6 +187,21 @@ Returns: `Promise[ReadableStream]`
 Returns a `Promise` that resolves to a `ReadableStream` decryption stream that
 consumes the data in `encryptedStream` and returns a plaintext version.
 
+### `keychain.decryptStreamRange(offset, length, totalEncryptedLength)`
+
+Type: `Function`
+
+Returns: `Promise[{ ranges, decrypt }]`
+
+Returns a `Promise` that resolves to a object containing `ranges`, which is an array of
+objects containing `offset` and `length` integers specifying the encrypted byte ranges
+that are needed to decrypt the client's specified range, and an `decrypt` function.
+
+Once the client has gathered a stream for each byte range in `ranges`, the client
+should call `decrypt(streams)`, where `streams` is an array of `ReadableStream` objects,
+one for each of the requested ranges. `decrypt` will then return a `ReadableStream`
+containing the plaintext data for the client's desired byte range.
+
 #### `encryptedStream`
 
 Type: `ReadableStream`
