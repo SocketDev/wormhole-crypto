@@ -195,7 +195,7 @@ Returns: `Promise[{ ranges, decrypt }]`
 
 Returns a `Promise` that resolves to a object containing `ranges`, which is an array of
 objects containing `offset` and `length` integers specifying the encrypted byte ranges
-that are needed to decrypt the client's specified range, and an `decrypt` function.
+that are needed to decrypt the client's specified range, and a `decrypt` function.
 
 Once the client has gathered a stream for each byte range in `ranges`, the client
 should call `decrypt(streams)`, where `streams` is an array of `ReadableStream` objects,
