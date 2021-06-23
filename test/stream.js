@@ -100,4 +100,26 @@ test('decrypt ranges', async t => {
 
     t.deepEqual(plaintext, data.slice(offset, offset + length))
   })
+
+  await t.test('range with extra chunk in encrypted stream', async t => {
+    // start exactly at the beginning of the second record
+    const offset = 65536 - 17 /* chunk meta length */
+    // end exactly at the end of the third record
+    const length = (65536 - 17) * 2
+    const { ranges, decrypt } = await keychain.decryptStreamRange(offset, length, encryptedData.byteLength)
+
+    const streams = [
+      arrayToStream(encryptedData.slice(ranges[0].offset, ranges[0].offset + ranges[0].length)),
+      // make data stream too long by one record
+      arrayToStream(encryptedData.slice(ranges[1].offset, ranges[1].offset + ranges[1].length + 65536))
+    ]
+
+    // note that t.throws() doesn't work for promise rejections
+    try {
+      await streamToArray(decrypt(streams))
+      t.fail('should have thrown')
+    } catch (err) {
+      t.ok(err, 'throws with short input')
+    }
+  })
 })
