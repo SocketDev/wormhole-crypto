@@ -14,7 +14,7 @@
     "base64-js": "^1.5.1"
   },
   "devDependencies": {
-    "airtap": "^4.0.3",
+    "airtap": "^4.0.4",
     "airtap-manual": "^1.0.0",
     "airtap-sauce": "^1.1.2",
     "airtap-system": "^0.1.0",
