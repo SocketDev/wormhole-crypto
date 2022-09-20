@@ -21,7 +21,7 @@
     "babel-eslint": "^10.1.0",
     "esmify": "^2.1.1",
     "standard": "^16.0.3",
-    "tape": "^5.4.0"
+    "tape": "^5.6.1"
   },
   "keywords": [
     "RFC 8188",
