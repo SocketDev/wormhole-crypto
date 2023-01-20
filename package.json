@@ -20,7 +20,7 @@
     "airtap-system": "^0.1.0",
     "babel-eslint": "^10.1.0",
     "esmify": "^2.1.1",
-    "standard": "^16.0.3",
+    "standard": "^17.0.0",
     "tape": "^5.4.0"
   },
   "keywords": [
