@@ -1,6 +1,6 @@
 # wormhole-crypto 
 
-[![Socket Badge](https://socket.dev/api/badge/npm/pkg/wormhole-crypto)](https://socket.dev/npm/package/wormhole-crypto)
+[![Socket Badge](https://socket.dev/api/badge/npm/package/wormhole-crypto)](https://socket.dev/npm/package/wormhole-crypto)
 [![ci][ci-image]][ci-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url]
 
 [ci-image]: https://img.shields.io/github/workflow/status/SocketDev/wormhole-crypto/ci/master
