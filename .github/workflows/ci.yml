@@ -4,25 +4,17 @@ name: ci
   - pull_request
 jobs:
   test:
-    name: Node ${{ matrix.node }} / ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    environment: ci
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - ubuntu-latest
-        node:
-          - '14'
+    name: Test
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.4.0
       - uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 16
       - run: npm install
       - run: npm run build --if-present
       - run: echo "127.0.0.1 airtap.local" | sudo tee -a /etc/hosts
-      - run: npm test
+      - run: npm run lint
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
