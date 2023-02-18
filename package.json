@@ -51,5 +51,6 @@
   "standard": {
     "parser": "babel-eslint"
   },
-  "type": "module"
+  "type": "module",
+  "types": "index.d.ts"
 }
